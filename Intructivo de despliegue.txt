@@ -1,0 +1,34 @@
+Instructivo de Despliegue para Task- Manager
+Para efectos de este instructivo tendremos que RUTA_LOCAL_REPOSITORIO, será la ruta local o donde fue descargado el repositorio git.
+
+
+1. Base de Datos MySQL
+
+	1.1. Requisitos
+		Tener instalado y configurado MYSQL 8.0.33
+
+	1.2. Acciones
+		1.2.1. Ejecutar los scripts que se encuentran en el directorio <RUTA_LOCAL_REPOSITORIO>\taskmanager\SQL\*, la ejecución debe hacerse en el orden del prefijo.
+		1.2.2. Crear un usuario de base de datos y darle permisos de escritura, ejecución, 
+
+
+2. API taskmanager
+	2.1. Requisitos
+		 2.1.1. Servidor tomcat 10.x
+		 2.1.2. JDK 17 - instalar y configurar variable de entorno JAVA_HOME
+		 2.1.3. Apache Maven 3.8.8	- instalar y configurar variable de entorno MAVEN_HOME
+
+	2.2. Acciones
+		2.2.1. Abrir un terminal, y ubicarse dentro del directio <RUTA_LOCAL_REPOSITORIO>\taskmanager\API\.
+		2.2.2. Ejecutar el siguiente comando para generar el WAR del proyecto: 
+					mvn clean package		  
+					
+		2.2.3. Al finalizar el proceso de la tarea anterior, realizar:
+			   a. Detener el servidor tomcat 
+			   b. Buscar el archivo task-manager-1.0.war que se generó en <RUTA_LOCAL_REPOSITORIO>\taskmanager\API\target y copiarlo 
+				en el subdirectorio webapps de tomcat, ubicado en <RUTA_TOMCAT>\webapps\
+			   c. Iniciar Tomcat.
+		2.2.4. Buscar el archivo application.properties en <RUTA_TOMCAT>\webapps\task-manager-1.0\WEB-INF\classes para configurar el acceso a la base de datos y reiniciar tomcat.
+						   
+		2.2.5. La api se podrá acceder mediante la siguiente url:				
+				http://<URL_SERVIDOR_TOMCAT>:<PUERTO_TOMCAT>/task-manager-1.0/swagger-ui/index.html
